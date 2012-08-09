@@ -36,17 +36,17 @@ var getEventUsers = function(eventNo, callback) {
             var hours = 0;
             var minutes = 0;
 
-            if (Number(eventTime[0].innerText) > 2000) {
-                year = Number(eventTime[0].innerText);
-                month = Number(eventTime[1].innerText);
-                day = Number(eventTime[2].innerText);
-                hours = Number(eventTime[3].innerText);
-                minutes = Number(eventTime[4].innerText);
+            if (Number(eventTimes[0].innerText) > 2000) {
+                year = Number(eventTimes[0].innerText);
+                month = Number(eventTimes[1].innerText);
+                day = Number(eventTimes[2].innerText);
+                hours = Number(eventTimes[3].innerText);
+                minutes = Number(eventTimes[4].innerText);
             } else {
-                month = Number(eventTime[0].innerText);
-                day = Number(eventTime[1].innerText);
-                hours = Number(eventTime[2].innerText);
-                minutes = Number(eventTime[3].innerText);
+                month = Number(eventTimes[0].innerText);
+                day = Number(eventTimes[1].innerText);
+                hours = Number(eventTimes[2].innerText);
+                minutes = Number(eventTimes[3].innerText);
             }
 
             var eventTime = new Date(year, month, day, hours, minutes, 0, 0);
