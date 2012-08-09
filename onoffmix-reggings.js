@@ -30,6 +30,10 @@ var getEventUsers = function(eventNo, callback) {
             var $ = cheerio.load(body);
 
             var eventTimes = $('.event-schedule span .number');
+            if (eventTimes.length === 0) {
+                return callback(null, null);
+            }
+
             var year = 2012;
             var month = 0;
             var day = 0;
@@ -136,6 +140,10 @@ async.forEach(
         getEventUsers(eventNo, function(err, eventUsers) {
             if (err) {
                 return callback(err);
+            }
+
+            if (!eventUsers) {
+                return callback(null);
             }
 
             scoreEvent(eventNo, eventUsers, function(err) {
