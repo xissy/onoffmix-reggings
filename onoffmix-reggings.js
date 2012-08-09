@@ -40,21 +40,21 @@ var getEventUsers = function(eventNo, callback) {
             var hours = 0;
             var minutes = 0;
 
-            if (Number(eventTimes[0].innerText) > 2000) {
-                year = Number(eventTimes[0].innerText);
-                month = Number(eventTimes[1].innerText);
-                day = Number(eventTimes[2].innerText);
-                hours = Number(eventTimes[3].innerText);
-                minutes = Number(eventTimes[4].innerText);
+            if (Number(eventTimes[0].children[0].data) > 2000) {
+                year = Number(eventTimes[0].children[0].data);
+                month = Number(eventTimes[1].children[0].data) - 1;
+                day = Number(eventTimes[2].children[0].data);
+                hours = Number(eventTimes[3].children[0].data);
+                minutes = Number(eventTimes[4].children[0].data);
             } else {
-                month = Number(eventTimes[0].innerText);
-                day = Number(eventTimes[1].innerText);
-                hours = Number(eventTimes[2].innerText);
-                minutes = Number(eventTimes[3].innerText);
+                month = Number(eventTimes[0].children[0].data) - 1;
+                day = Number(eventTimes[1].children[0].data);
+                hours = Number(eventTimes[2].children[0].data);
+                minutes = Number(eventTimes[3].children[0].data);
             }
 
             var eventTime = new Date(year, month, day, hours, minutes, 0, 0);
-
+            eventTime.setFullYear(year);
             
             var auths = $('.auth div a');
             var authUserIds = [];
@@ -102,7 +102,10 @@ var scoreEvent = function(eventNo, eventUsers, callback) {
                                            '&itemName=' + eventName +
                                            '&tagNames=type_event';
 
-                    scoreQueryString += '&userName=' + authUserId + '&score=5';
+                    scoreQueryString += '&userName=' + authUserId + 
+                                        '&score=5' + 
+                                        '&time=' + eventUsers.eventTime.getTime();
+
                     request.get(scoreUrl + scoreQueryString, callback);
                 },
 
@@ -121,7 +124,10 @@ var scoreEvent = function(eventNo, eventUsers, callback) {
                                            '&itemName=' + eventName +
                                            '&tagNames=type_event';
 
-                    scoreQueryString += '&userName=' + standbyUserId + '&score=4';
+                    scoreQueryString += '&userName=' + standbyUserId + 
+                                        '&score=4' + 
+                                        '&time=' + eventUsers.eventTime.getTime();
+
                     request.get(scoreUrl + scoreQueryString, callback);
                 },
 
