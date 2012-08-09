@@ -2,6 +2,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var async = require('async');
 var querystring = require('querystring');
+var moment = require('moment');
 
 
 var range = function(i, j) {
@@ -27,6 +28,29 @@ var getEventUsers = function(eventNo, callback) {
             }
 
             var $ = cheerio.load(body);
+
+            var eventTimes = $('.event-schedule span .number');
+            var year = 2012;
+            var month = 0;
+            var day = 0;
+            var hours = 0;
+            var minutes = 0;
+
+            if (Number(eventTime[0].innerText) > 2000) {
+                year = Number(eventTime[0].innerText);
+                month = Number(eventTime[1].innerText);
+                day = Number(eventTime[2].innerText);
+                hours = Number(eventTime[3].innerText);
+                minutes = Number(eventTime[4].innerText);
+            } else {
+                month = Number(eventTime[0].innerText);
+                day = Number(eventTime[1].innerText);
+                hours = Number(eventTime[2].innerText);
+                minutes = Number(eventTime[3].innerText);
+            }
+
+            var eventTime = new Date(year, month, day, hours, minutes, 0, 0);
+
             
             var auths = $('.auth div a');
             var authUserIds = [];
@@ -47,6 +71,7 @@ var getEventUsers = function(eventNo, callback) {
             };
 
             return callback(null, {
+                eventTime: eventTime,
                 authUserIds: authUserIds,
                 standbyUserIds: standbyUserIds
             });

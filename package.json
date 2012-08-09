@@ -8,7 +8,8 @@
     "dependencies": {
         "request": ">= 2.10.0",
         "cheerio": ">= 0.9.1",
-        "async": ">= 0.1.22"
+        "async": ">= 0.1.22",
+        "moment": ">= 1.7.0"
     },
     "devDependencies": {
         "should": ">= 1.0.0",
