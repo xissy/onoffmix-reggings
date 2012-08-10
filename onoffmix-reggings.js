@@ -61,6 +61,9 @@ var getEventUsers = function(eventNo, callback) {
             for (var i = 0; i < auths.length; i++) {
                 var authUser = auths[i];
                 var authUserUrlArray = authUser.attribs.href.split('/');
+                if (authUserUrlArray.length === 1) {
+                    continue;
+                }
 
                 authUserIds.push( authUserUrlArray[authUserUrlArray.length - 1] );
             };
@@ -70,6 +73,9 @@ var getEventUsers = function(eventNo, callback) {
             for (var i = 0; i < standbys.length; i++) {
                 var standbyUser = standbys[i];
                 var standbyUrlArray = standbyUser.attribs.href.split('/');
+                if (standbyUrlArray.length === 1) {
+                    continue;
+                }
 
                 standbyUserIds.push( standbyUrlArray[standbyUrlArray.length - 1] );
             };
